@@ -1,0 +1,107 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <title>Ukulele Chords</title>
+  </head>
+  <body>
+    <br>
+    <h1>Ukulele Chord</h1>
+
+    <div id="content">
+      <div class="select-style">
+        <select id="chord" onchange="displayChord()" ;>
+          <option>Select</option>
+          <option>A</option>
+          <option>Bb</option>
+          <option>B</option>
+          <option>C</option>
+          <option>C#</option>
+          <option>D</option>
+          <option>E</option>
+          <option>Eb</option>
+          <option>F</option>
+          <option>F#</option>
+          <option>G</option>
+          <option>G#</option>
+        </select>
+      </div>
+      <br>
+      <div class="select-style">
+        <select id="scale" onchange="displayChord()" ;>
+          <option>Major</option>
+          <option>Aug</option>
+          <option>Dim</option>
+          <option>6th</option>
+          <option>Minor 6</option>
+          <option>7th</option>
+          <option>Major 7</option>
+          <option>Minor</option>
+          <option>Minor 7</option>
+          <option>Sus 2</option>
+          <option>Sus 4</option>
+          <option>7 Sus 4</option>
+          <option>9th</option>
+          <option>Add 9</option>
+          <option>Minor 9</option>
+        </select>
+      </div>
+      <br><br>
+      <canvas id="myCanvas" width="100" height="125"></canvas>
+    </div>
+    <script type="text/javascript">
+      function displayChord() {
+        var json = '{ "Major":{   "A":"2 1 0 0",  "B":"4 3 2 2",  "Bb":"3 2 1 1",   "C":"0 0 0 3",  "C#":"1 1 1 4",   "D":"2 2 2 0",  "Eb":"0 3 3 1",   "E":"1 4 0 2",  "F":"2 0 1 0",  "F#":"3 1 2 1",   "G":"0 2 3 2",  "G#":"4 2 3 2"},    "Minor":{   "A":"2 0 0 0",  "Bb":"3 1 1 1",   "B":"4 1 2 2",  "C":"0 3 3 3",  "C#":"1 4 4 4",   "D":"2 2 1 0",  "Eb":"3 3 2 1",   "E":"0 4 3 2",  "F":"1 0 1 3",  "F#":"2 1 2 0",   "G":"0 2 3 1",  "G#":"4 3 4 2"},    "Aug":{   "A":"2 1 1 4",  "Bb":"3 2 2 1",   "B":"4 3 3 2",  "C":"1 0 0 3",  "C#":"2 1 1 0",   "D":"3 2 2 1",  "Eb":"0 3 3 2",   "E":"1 0 0 3",  "F":"2 1 1 0",  "F#":"3 2 2 1",   "G":"0 3 3 2",  "G#":"1 0 0 3"},    "Dim":{   "A":"2 3 2 3",  "Bb":"3 1 0 1",   "B":"4 2 1 2",  "C":"-1 3 2 3",   "C#":"0 1 0 4",   "D":"1 2 1 -1",   "Eb":"2 3 2 0",   "E":"0 1 0 1",  "F":"1 2 1 2",  "F#":"2 3 2 3",   "G":"0 1 3 1",  "G#":"1 2 1 2"},    "7th":{   "A":"0 1 0 0",  "Bb":"1 2 1 1",   "B":"2 3 2 2",  "C":"0 0 0 1",  "C#":"1 1 1 2",   "D":"2 2 2 3",  "Eb":"3 3 3 4",   "E":"1 2 0 2",  "F":"2 3 1 3",  "F#":"3 4 2 4",   "G":"0 2 1 2",  "G#":"1 3 2 3"},    "Minor 7":{   "A":"0 0 0 0",  "Bb":"1 1 1 1",   "B":"2 2 2 2",  "C":"3 3 3 3",  "C#":"1 1 0 2",   "D":"2 2 1 3",  "Eb":"3 3 2 4",   "E":"0 2 0 2",  "F":"2 4 1 3",  "F#":"2 4 2 4",   "G":"0 2 1 1",  "G#":"1 3 2 2"},    "Major 7":{   "A":"1 1 0 0",  "Bb":"3 2 1 0",   "B":"4 3 2 1",  "C":"0 0 0 2",  "C#":"1 1 1 3",   "D":"2 2 2 4",  "Eb":"2 2 2 4 3",   "E":"1 3 0 2",  "F":"2 4 1 3",  "F#":"2 4 1 3 3",   "G":"0 2 2 2",  "G#":"1 3 3 3"},    "6th":{   "A":"2 1 2 0",  "Bb":"0 2 1 1",   "B":"1 3 2 2",  "C":"0 0 0 0",  "C#":"1 1 1 1",   "D":"2 2 2 2",  "Eb":"3 3 3 3",   "E":"4 4 4 4",  "F":"2 2 1 3",  "F#":"3 3 2 4",   "G":"0 2 0 2",  "G#":"2 3 2 4 4"},    "Minor 6":{   "A":"2 0 2 0",  "Bb":"3 1 3 1",   "B":"1 2 2 2",  "C":"2 3 3 3",  "C#":"1 1 0 1",   "D":"2 2 1 2",  "Eb":"3 3 2 3",   "E":"0 1 0 2",  "F":"1 2 1 3",  "F#":"2 1 2 3",   "G":"0 2 0 1",  "G#":"2 3 2 4 4"},    "Add 9":{   "A":"2 1 0 2",  "Bb":"3 2 1 3",   "B":"4 3 2 4",  "C":"0 4 3 3",  "C#":"1 3 1 4",   "D":"1 3 1 4 3",  "Eb":"0 3 1 1",   "E":"1 4 2 2",  "F":"0 0 1 0",  "F#":"1 1 2 1",   "G":"0 1 4 1 3",  "G#":"3 3 4 3"},    "Minor 9":{   "A":"2 0 0 2",  "Bb":"3 1 1 3",   "B":"2 1 0 1",  "C":"4 2 2 4 3",  "C#":"1 3 0 4",   "D":"1 4 0 4 3",  "Eb":"1 3 -1 4 4",  "E":"0 4 2 2",  "F":"0 4 3 2 3",  "F#":"1 2 2 0",   "G":"2 2 3 1",  "G#":"2 2 3 1 3"},    "9th":{   "A":"0 1 0 2",  "Bb":"3 2 4 3",   "B":"3 2 4 3 3",  "C":"0 2 0 1",  "C#":"1 3 1 2",   "D":"2 4 2 3",  "Eb":"0 1 1 1",   "E":"1 2 2 2",  "F":"2 3 3 3",  "F#":"1 1 0 1",   "G":"2 2 1 2",  "G#":"2 2 1 2"},    "Sus 2":{   "A":"1 3 4 1 3",  "Bb":"3 0 1 1",   "B":"4 1 2 2",  "C":"0 2 3 3",  "C#":"1 3 4 4",   "D":"2 2 0 0",  "Eb":"3 3 4 4",   "E":"4 4 2 2",  "F":"0 0 1 3",  "F#":"1 1 2 4",   "G":"0 2 3 0",  "G#":"1 3 4 1"},    "Sus 4":{   "A":"2 2 0 0",  "Bb":"3 3 1 1",   "B":"4 4 2 2",  "C":"0 0 1 3",  "C#":"1 1 2 4",   "D":"0 2 3 0",  "Eb":"1 3 4 1",   "E":"1 3 4 1 3",  "F":"3 0 1 1",  "F#":"4 1 2 2",   "G":"0 2 3 3",  "G#":"1 3 4 4"},    "7 Sus 4":{   "A":"0 2 0 0",  "Bb":"1 3 1 1",   "B":"2 4 2 2",  "C":"0 0 1 1",  "C#":"1 1 2 2",   "D":"2 2 3 3",  "Eb":"2 2 3 3 3",   "E":"1 1 2 2 5",  "F":"2 2 3 3 5",  "F#":"2 2 3 3 5",   "G":"0 2 1 3",  "G#":"1 3 2 4"} }';
+
+        var obj = JSON.parse(json);
+
+        var chord = document.getElementById("chord").value;
+        var scale = document.getElementById("scale").value;
+        var canvas = document.getElementById('myCanvas');
+
+        buildBoard(canvas);
+        var finger = obj[scale][chord].split(" ");
+        for (var i = 0; i <= 3; i++) {
+          if (finger[i] != "0") {
+            placeFinger(canvas, i * 25 + 12, finger[i] * 25);
+          }
+        }
+      }
+function buildBoard(canvas) {
+  context = canvas.getContext('2d');
+  context.beginPath();
+  context.rect(0, 0, 100, 125);
+  context.fillStyle = '#fff';
+  context.fill();
+  context.lineWidth = 2;
+
+  context.rect(12, 12, 76, 101);
+  context.rect(12 + 25, 12, 25, 101);
+
+  context.rect(12, 12 + 25, 76, 25);
+  context.rect(12, 12 + 50, 76, 25);
+
+  context.strokeStyle = '#000';
+  context.stroke();
+}
+
+function placeFinger(canvas, x, y) {
+  context = canvas.getContext('2d');
+  context.beginPath();
+  context.lineWidth = 1;
+  context.arc(x, y, 7, 0, 2 * Math.PI, false);
+  context.fillStyle = 'green';
+  context.fill();
+  context.strokeStyle = '#000';
+  context.stroke();
+}
+
+var canvas = document.getElementById('myCanvas');
+buildBoard(canvas);
+</script>
+</body>
+</html>
