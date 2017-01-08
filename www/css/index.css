@@ -11,8 +11,8 @@ select {
   width: 200px;
 }
 #myCanvas {
-  background-color: #ddd;
-  width: 200px;
+  background-color: green;
+  /*width: 200px;*/
 }
 
 .select-style {

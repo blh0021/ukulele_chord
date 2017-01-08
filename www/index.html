@@ -33,8 +33,8 @@
                 <option>C</option>
                 <option>C#</option>
                 <option>D</option>
-                <option>E</option>
                 <option>Eb</option>
+                <option>E</option>
                 <option>F</option>
                 <option>F#</option>
                 <option>G</option>
@@ -63,9 +63,13 @@
         </div>
         <br>
         <br>
-        <canvas id="myCanvas" width="100" height="125"></canvas>
+        <canvas id="myCanvas" width="200px" height="250px"></canvas>
     </div>
     <script type="text/javascript">
+        var a = 25;
+        var w = 200;
+        var h = 250;
+
         function displayChord() {
             var instrument = document.getElementById("instrument").value;
             var obj = instrument == 'Ukulele' ? data : baritone;
@@ -77,25 +81,65 @@
             buildBoard(canvas);
             var finger = obj[scale][chord].split(" ");
             for (var i = 0; i <= 3; i++) {
-                if (finger[i] != "0") {
-                    placeFinger(canvas, i * 25 + 12, finger[i] * 25);
+                var x = i * (w - 2 * a) / 3 + a;
+                if (finger[i] != "0" && finger[i] != "-1") {
+                    //var x = i * (w - 2 * a) / 3 + a;
+                    var y = finger[i] * (h - 2 * a) / 4;
+                    placeFinger(canvas, x, y);
+                } else if (finger[i] == "-1") {
+                    xString(canvas, x);
+                } else if (finger[i] == "0") {
+                    oString(canvas, x);
                 }
+
+            }
+
+            tabHeight(canvas, finger);
+        }
+
+        function tabHeight(canvas, finger) {
+          console.log(finger)
+            if (finger.length == 5) {
+
+                context = canvas.getContext('2d');
+                context.fillStyle = '#000';
+                context.font = "20px Arial";
+                context.fillText(finger[4], 7, (h - 2 * a) / 2 + a / 2 - 5);
+                context.stroke();
             }
         }
 
+        function xString(canvas, x) {
+            context = canvas.getContext('2d');
+            context.fillStyle = '#000';
+            context.font = "20px Arial";
+            context.fillText("X", x - 6, 20);
+            context.stroke();
+        }
+
+        function oString(canvas, x) {
+            context = canvas.getContext('2d');
+            context.fillStyle = '#000';
+            context.font = "20px Arial";
+            context.fillText("O", x - 6, 20);
+            context.stroke();
+        }
+
         function buildBoard(canvas) {
+            var a = 25;
+            var w = 200;
+            var h = 250;
             context = canvas.getContext('2d');
             context.beginPath();
-            context.rect(0, 0, 100, 125);
+            context.rect(0, 0, w, h);
             context.fillStyle = '#fff';
             context.fill();
             context.lineWidth = 2;
 
-            context.rect(12, 12, 76, 101);
-            context.rect(12 + 25, 12, 25, 101);
-
-            context.rect(12, 12 + 25, 76, 25);
-            context.rect(12, 12 + 50, 76, 25);
+            context.rect(a, a, w - 2 * a, h - 2 * a);
+            context.rect(a + (w - 2 * a) / 3, a, w / 4, h - 2 * a);
+            context.rect(a, a + (h - 2 * a) / 4, w - 2 * a, (h - 2 * a) / 4);
+            context.rect(a, a + (h - 2 * a) / 4 + 2 * a, w - 2 * a, (h - 2 * a) / 4);
 
             context.strokeStyle = '#000';
             context.stroke();
@@ -105,7 +149,7 @@
             context = canvas.getContext('2d');
             context.beginPath();
             context.lineWidth = 1;
-            context.arc(x, y, 7, 0, 2 * Math.PI, false);
+            context.arc(x, y, 10, 0, 2 * Math.PI, false);
             context.fillStyle = 'green';
             context.fill();
             context.strokeStyle = '#000';
